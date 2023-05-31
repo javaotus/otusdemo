@@ -1,0 +1,10 @@
+INSERT INTO item (name, available) VALUES ('item1', TRUE);
+INSERT INTO item (name, available) VALUES ('item2', TRUE);
+INSERT INTO item (name, available) VALUES ('item3', FALSE);
+INSERT INTO item (name, available) VALUES ('item4', TRUE);
+INSERT INTO item (name, available) VALUES ('item5', TRUE);
+INSERT INTO item (name, available) VALUES ('item6', TRUE);
+INSERT INTO item (name, available) VALUES ('item7', FALSE );
+INSERT INTO item (name, available) VALUES ('item8', FALSE );
+INSERT INTO item (name, available) VALUES ('item9', FALSE );
+INSERT INTO item (name, available) VALUES ('item10', TRUE);

@@ -1,0 +1,27 @@
+springdoc:
+  swagger-ui:
+    tryItOutEnabled: true
+    filter: true
+    path: /swagger-ui
+
+server:
+
+  servlet:
+    context-path: /api
+
+spring:
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/otus-demo?useUnicode=true&characterEncoding=UTF8
+    username: postgres
+    password: postgres
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+  liquibase:
+    change-log: liquibase/master.xml
+    enabled: false
