@@ -1,0 +1,66 @@
+plugins {
+	id "java"
+	id "org.springframework.boot" version "3.0.2"
+	id "io.spring.dependency-management" version "1.1.0"
+}
+
+group = 'ru.otus.demo'
+version = '0.0.1'
+sourceCompatibility = '17'
+
+def lombokVersion = "1.18.26"
+
+def postgreSqlVersion = "42.5.4"
+def springBootVersion = '3.1.0'
+def mapStructVersion = "1.5.5.Final"
+def testContainersVersion = "1.17.6"
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-amqp:3.0.4')
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+	implementation("org.springframework.boot:spring-boot-starter-validation:${springBootVersion}")
+	implementation("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
+	implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+		exclude module: 'spring-boot-starter-tomcat'
+	}
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+
+	implementation("com.fasterxml.jackson.core:jackson-annotations")
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+
+	compileOnly("org.projectlombok:lombok:${lombokVersion}")
+	annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+
+	implementation("org.liquibase:liquibase-core:4.20.0")
+
+	runtimeOnly("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
+	runtimeOnly("org.postgresql:postgresql:${postgreSqlVersion}")
+
+	implementation("org.mapstruct:mapstruct:${mapStructVersion}")
+	annotationProcessor("org.mapstruct:mapstruct-processor:${mapStructVersion}")
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test:3.1.0')
+	testImplementation("org.awaitility:awaitility:4.2.0")
+
+	testImplementation("org.junit.jupiter:junit-jupiter-params:5.0.0")
+
+	testImplementation("org.testcontainers:testcontainers:${testContainersVersion}")
+	testImplementation("org.testcontainers:junit-jupiter:${testContainersVersion}")
+	testImplementation("org.testcontainers:postgresql:${testContainersVersion}")
+	testImplementation("org.testcontainers:rabbitmq:${testContainersVersion}")
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	compile.exclude module: "spring-boot-starter-tomcat"
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

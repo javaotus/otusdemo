@@ -25,3 +25,15 @@ spring:
   liquibase:
     change-log: liquibase/master.xml
     enabled: false
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+otus:
+  rabbitmq:
+    exchange: super-otus.exchange
+    routingkey: super.otus
+    queue: super-otus.queue

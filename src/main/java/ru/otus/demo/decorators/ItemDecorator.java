@@ -2,19 +2,27 @@ package ru.otus.demo.decorators;
 
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.Message;
 import org.springframework.stereotype.Component;
 
 import ru.otus.demo.dtos.ItemDto;
 import ru.otus.demo.mappers.ItemMapper;
 import ru.otus.demo.services.ItemService;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class ItemDecorator {
+    private final AmqpTemplate amqpTemplate;
 
+    private final Binding binding;
     private final ItemMapper itemMapper;
     private final ItemService itemService;
 
@@ -23,7 +31,14 @@ public class ItemDecorator {
     }
 
     public ItemDto getOne(UUID id) {
-        return itemMapper.toDto(itemService.getOne(id));
+
+        String uuid = UUID.randomUUID().toString();
+
+        amqpTemplate.convertAndSend(binding.getExchange(), binding.getRoutingKey(), uuid);
+
+        log.info("The message has been send! --> {}", uuid);
+
+        return null;
     }
 
     public ItemDto createOne(String name, boolean vegetable) {
